@@ -8,11 +8,7 @@ pipeline {
             steps {
                 checkout scm
             }
-        }
-        tools {
-        label 'docker-agent'  
-    }
-
+            
         stage('Build') {
             steps {
                 sh 'mvn clean package'
