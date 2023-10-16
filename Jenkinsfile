@@ -9,6 +9,9 @@ pipeline {
                 checkout scm
             }
         }
+        tools {
+        label 'docker-agent'  
+    }
 
         stage('Build') {
             steps {
@@ -19,6 +22,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    def dockerHome = tool 'docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
                     def app = docker.build("helloworld-java-app:${env.BUILD_NUMBER}")
                 }
             }
